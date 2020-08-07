@@ -25,20 +25,18 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -52,6 +50,7 @@ import com.google.android.gms.nearby.messages.NearbyMessagesStatusCodes;
 import com.google.android.gms.nearby.messages.NearbyPermissions;
 import com.google.android.gms.nearby.messages.Strategy;
 import com.google.android.gms.nearby.messages.SubscribeOptions;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         for (int i = 0; i < permissions.length; i++) {
             String permission = permissions[i];
             if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
-                if (shouldShowRequestPermissionRationale(permission)) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
                     Log.i(TAG, "Permission denied without 'NEVER ASK AGAIN': " + permission);
                     showRequestPermissionsSnackbar();
                 } else {
